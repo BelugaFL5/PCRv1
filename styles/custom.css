@@ -1,0 +1,134 @@
+/* Custom background color for cards */
+
+.login-custom-card {
+    background-color: white !important;
+    /* color:#ffb319 ; */
+    color: black;
+    border-radius: 1rem;
+    height: 700px !important;
+    width: 500px !important;
+}
+
+.register-custom-card {
+    background-color: white !important;
+    /* color:#ffb319 ; */
+    color: black;
+    border-radius: 1rem;
+    height: 500px !important;
+    width: 500px !important;
+}
+
+
+.login-button
+{
+    background-color: green ;
+    color: white;
+    
+}
+.login-button:hover
+{
+    background-color: rgb(41, 209, 41) ;
+    
+    color: white;
+
+}
+
+.forgot-password
+{
+    text-decoration: none;
+    color: rgb(0, 106, 151);
+}
+.sign-up
+{
+    text-decoration: none;
+    color: rgb(0, 106, 151);
+}
+
+.gradient-custom {
+    background: rgb(255,160,201);
+    background: radial-gradient(circle, rgba(172,149,255,1) 15%, rgba(138,251,128,1) 100%);
+    }
+
+
+    .brand-name {
+        transition: opacity 0.5s ease-in-out;
+        background: linear-gradient(#7F7FD5, #86A8E7, #91EAE4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    
+
+.search-bar
+{
+    margin: 30px 0;
+}
+
+.search-control img
+{
+    transition: 0.5s;
+    height: 45px;
+    width: 45px;
+    padding: 10px;
+    background-color: rgb(168, 168, 168);
+    margin: 30px;
+    border-radius: 20px;
+}
+.search-control img:hover
+{
+    transition: 0.5s;
+    height: 45px;
+    width: 45px;
+    padding: 10px;
+    background-color: rgb(229, 229, 229);
+    margin: 30px;
+    border-radius: 20px;
+}
+.table-icons img
+{
+    transition: 0.5s;
+    height: 50px;
+    width: 50px;
+    padding: 14px;
+    background-color: rgb(168, 168, 168);
+    margin: 0 10px;
+    border-radius: 15px;
+}
+.table-icons img:hover
+{
+    transition: 0.5s;
+    height: 45px;
+    width: 45px;
+    padding: 13px;
+    background-color: rgb(229, 229, 229);
+    border-radius: 18px;
+}
+.table-icons button
+{
+    border: none;
+    background-color: transparent;
+    
+}
+
+
+
+
+.search-control a
+{
+    margin: 30px 30px 30px 0px;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    
+}
+.search-control button
+{
+    size: 45px 45px;
+    border: none;
+    background-color: transparent;
+    padding: 0px;
+    margin: 0px;
+
+
+}
+
