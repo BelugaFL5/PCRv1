@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     </script>
 </head>
 <body>
-    <section name="background" class="gradient-custom vh-100 ">
+    <section name="background" class="gradient-custom vh-auto min-vh-100">
         <div class="container">
             <div class="row d-flex justify-content-lg-end justify-content-center align-item-center py-5 mx-auto">
                 <div class=" card login-custom-card">

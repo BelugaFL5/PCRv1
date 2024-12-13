@@ -23,7 +23,7 @@
                                 <img src="../icons/lecture.png" alt="" width="40" height="40">
                                 Lecturers</a></li>
                                 <hr class="dropdown-split">
-                                <li><a class="dropdown-item" href="">
+                                <li><a class="dropdown-item" href="../student/adminDashboard.php">
                                     <img src="../icons/students.png" alt="" width="40" height="40">
                                     Students</a></li>
                                 </ul>

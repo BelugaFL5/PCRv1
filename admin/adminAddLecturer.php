@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     <title>Add Lecturer</title>
 </head>
 <body>
-<div class="gradient-custom vh-100">
+<div class="gradient-custom vh-auto min-vh-100">
 
   <div class="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark ms-auto">
           <div class="container-fluid p-3">
