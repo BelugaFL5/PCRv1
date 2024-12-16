@@ -1,5 +1,5 @@
 <?php
-    require_once '../require/selectOneLecturer.php';
+    require_once '../require/requireLecturer.php';
 
     $filter= 0;
     $keyword =  '';
@@ -76,9 +76,9 @@
                             <li class="nav-item dropdown px-3">
                                 <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown">Course Management</a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="">BlaBla</a></li>
-                                    <hr class="dropdown-split">
-                                    <li><a class="dropdown-item" href="">BlaBla</a></li>
+                                <li><a class="dropdown-item" href="">Add Course</a></li>
+                                <hr class="dropdown-split">
+                                <li><a class="dropdown-item" href="lecturerCourse.php">Assign Course</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown px-5">

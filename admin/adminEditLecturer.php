@@ -3,7 +3,7 @@
 //initialize message
 
 $emailErr = $passwordErr = $confirmPasswordErr ='';
-require '../require/selectOneLecturer.php';
+require_once '../require/requireLecturer.php';
 
 
 //declare variables
@@ -20,8 +20,6 @@ if (isset($_GET['id']))
   $name=$result['name'];
   $email=$result['email'];
   $password=$result['password'];
-
-
 }
 
 //Add lecturer php code
@@ -62,7 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
   if (empty($emailErr) && empty($passwordErr) && empty($confirmPasswordErr))
    //save new credentials to database
   {
-    echo $newName;
     $id=intval($id);
     echo 
     "<script>
@@ -113,9 +110,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                             <li class="nav-item dropdown px-3">
                                 <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown">Course Management</a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="">BlaBla</a></li>
-                                    <hr class="dropdown-split">
-                                    <li><a class="dropdown-item" href="">BlaBla</a></li>
+                                <li><a class="dropdown-item" href="">Add Course</a></li>
+                                <hr class="dropdown-split">
+                                <li><a class="dropdown-item" href="lecturerCourse.php">Assign Course</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown px-5">

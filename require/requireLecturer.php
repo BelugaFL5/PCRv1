@@ -1,6 +1,6 @@
 <?php
 
-require_once '../require/connection.php';
+require_once 'connection.php';
 
 function selectLecturer($id)
 {
@@ -71,7 +71,7 @@ function searchLecturer($input)
 
 function loadAllLecturers() {
     
-    $con= mysqli_connect("localhost","root","","pcr1db");
+    $con = connectdb();
     if(!$con)
     {
         die("". mysqli_connect_error());
