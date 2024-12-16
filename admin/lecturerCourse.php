@@ -3,6 +3,7 @@
   require_once '../require/requireCourse.php';
   $resultLecturers = loadAllLecturers();
   $resultCourses = loadAllCourses();
+  $resultCourseAssignment = loadAllCourseAssignments();
   $selectLecturerErr = $selectCourseErr = '';
 
 
@@ -10,6 +11,15 @@
   {
     $lecturerName = $_POST['lecturer'];
     $courseName = $_POST['course'];
+
+    $lecturerResult = searchLecturerByName($lecturerName);
+    $lecturerData = $lecturerResult->fetch_assoc();
+    $lecturerID = $lecturerData['id'];
+
+
+    $courseResult = searchCourseByName($courseName);
+    $courseData = $courseResult->fetch_assoc();
+    $courseID = $courseData['id'];
   }
   if (empty($lecturerName))
   {
@@ -22,6 +32,13 @@
 
   if (empty($selectLecturerErr)&& empty($selectCourseErr))
   {
+    # check for repetitive entries
+    
+
+
+
+
+
     echo
     "
     <script>

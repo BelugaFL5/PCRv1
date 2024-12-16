@@ -31,7 +31,7 @@
     {
         try
         {
-            $result= searchLecturer($keyword);
+            $result= searchLecturerByEmail($keyword);
 
         }
         catch (Exception $e)

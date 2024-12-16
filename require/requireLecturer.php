@@ -49,12 +49,31 @@ function validateEmail($email)
     }
 }
 
-function searchLecturer($input)
+function searchLecturerByEmail($input)
 {
     $con = connectdb();
     $stmt=$con->prepare("SELECT * from lecturer where email like ?");
     $email = "%".$input."%";
     $stmt->bind_param("s",$email);
+    $stmt->execute();
+    $result= $stmt->get_result();
+    if (!$result)
+    {
+        throw new Exception("Error in search query" .mysqli_error($con));
+    }
+    else
+    {
+        return $result;
+
+    }
+    
+}
+function searchLecturerByName($input)
+{
+    $con = connectdb();
+    $stmt=$con->prepare("SELECT * from lecturer where name = ?");
+    $name = $input;
+    $stmt->bind_param("s",$name);
     $stmt->execute();
     $result= $stmt->get_result();
     if (!$result)
