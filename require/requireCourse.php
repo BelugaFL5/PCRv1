@@ -16,24 +16,10 @@ function loadAllCourses()
     $result=$stmt->get_result();
     return $result;
 }
-function loadAllCoursesAssignments()
-{
-    $con = connectdb();
-    if(!$con)
-    {
-        die("". mysqli_connect_error());
-    }
-    $query = "select * from lecturer_course";
-    $stmt = $con->prepare($query);
-    $stmt->execute();
-    $result=$stmt->get_result();
-    return $result;
-}
-
 function assignLecturerToCourse($lecturerID, $courseID )
 {
     $con = connectdb();
-    if($con)
+    if(!$con)
     {
         die("". mysqli_connect_error());
     }
@@ -44,7 +30,7 @@ function assignLecturerToCourse($lecturerID, $courseID )
     if ($stmt->execute())
     {
         return "Entry information updated in database.";
-        header()
+        
     }
     else
     {

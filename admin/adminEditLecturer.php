@@ -35,16 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
   if (validateEmail($newEmail) === 0 && !($newEmail===$email))
   {
     $emailErr = "Email is repeated. Please use another email";
-            //focus on email bracket
-        //     echo "<script>
-        //     document.addEventListener('DOMContentLoaded',function()
-        //     {
-        //     document.getElementById('email').focus();
-        //     document.getElementById('name').value = '".htmlspecialchars($name,ENT_QUOTES). "'
-        //     document.getElementById('email').value = '".htmlspecialchars($email,ENT_QUOTES). "'
-        //     document.getElementById('password').value = '".htmlspecialchars($password,ENT_QUOTES). "'
-        //     });
-        // </script>";
+
   }
   //change to 8 after debugging 
   if (strlen($newPassword) <1)
