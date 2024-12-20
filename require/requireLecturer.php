@@ -1,6 +1,6 @@
 <?php
 
-require_once '../require/connection.php';
+require_once 'connection.php';
 
 function selectLecturer($id)
 {
@@ -49,7 +49,7 @@ function validateEmail($email)
     }
 }
 
-function searchLecturer($input)
+function searchLecturerByEmail($input)
 {
     $con = connectdb();
     $stmt=$con->prepare("SELECT * from lecturer where email like ?");
@@ -68,10 +68,29 @@ function searchLecturer($input)
     }
     
 }
+function searchLecturerByName($input)
+{
+    $con = connectdb();
+    $stmt=$con->prepare("SELECT * from lecturer where name = ?");
+    $name = $input;
+    $stmt->bind_param("s",$name);
+    $stmt->execute();
+    $result= $stmt->get_result();
+    if (!$result)
+    {
+        throw new Exception("Error in search query" .mysqli_error($con));
+    }
+    else
+    {
+        return $result;
+
+    }
+    
+}
 
 function loadAllLecturers() {
     
-    $con= mysqli_connect("localhost","root","","pcr1db");
+    $con = connectdb();
     if(!$con)
     {
         die("". mysqli_connect_error());
