@@ -1,7 +1,7 @@
 <?php
 
 require_once 'connection.php';
-require_once 'requireCourse.php'
+require_once 'requireCourse.php';
 
 function loadAllCourseAssignments()
 {
@@ -63,7 +63,7 @@ function addCourseAssignment($lecturerID, $courseID)
         
     }
 
-function searchLecturerAssignedCourses($lecuterID)
+function searchLecturerAssignedCourses($lecturerID)
 {
     $con = connectdb();
     if(!$con)
@@ -72,13 +72,42 @@ function searchLecturerAssignedCourses($lecuterID)
     }
     $results = loadAllCourseAssignments();
     $results = $results->fetch_assoc();
-
+    
     #  Close and reestablish connection
-    $query = 'select course_id from lecturer_course where lecturer_id = ?';
+    $query = 'select course.id, course.name from lecturer_course join course ON lecturer_course.course_id = course.id where lecturer_id = ?';
     $stmt = $con->prepare($query);
     $stmt->bind_param("i", $lecturerID);
     $stmt->execute();
     $result=$stmt->get_result();
+    return $result;
+    
+}
+
+function removeAssignment($lecturerID, $courseID)
+{
+    $con = connectdb();
+    if(!$con)
+    {
+        die("". mysqli_connect_error());
+    }
+    $lecturerID=intval($lecturerID);
+    $courseID=intval($courseID);
+
+    $query = 'DELETE FROM lecturer_course WHERE lecturer_id =? AND course_id=?';
+    $stmt = $con->prepare($query);
+    $stmt->bind_param("ii", $lecturerID,$courseID);
+
+    if ($stmt->execute())
+    {
+        $stmt->close();
+        $con->close();
+        return "Unassigned.";
+    }
+    else
+    {
+        return "Failed to unassign.";
+    }
+
 }
 
 ?>

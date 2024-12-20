@@ -6,35 +6,46 @@
   $resultLecturers = loadAllLecturers();
   $resultCourses = loadAllCourses();
   $resultCourseAssignment = loadAllCourseAssignments();
+  $lecturerName='';
+  $lecturerNameDisplay='';
   
   // Variables for searching
   $resultTable=[];
- 
-
+  
+  
   $selectLecturerErr = $selectCourseErr = '';
   
   $search_btn = 0;
   $save_btn = 0;
-
-
+  
+  
   if ($_SERVER['REQUEST_METHOD'] === 'POST')
   {
+
     $lecturerName = isset($_POST['lecturer']) ?  $_POST['lecturer'] : null;
     $courseName =isset( $_POST['course']) ? $_POST['course'] : null;
-
+    
     $action = isset($_POST['action']) ? $_POST['action'] : null;
-
-
-    if ($action === 'search')
+    
+    
+    if ($action === 'search' && $lecturerName)
     {
-      $lecturerResult = searchLecturerByName($lecturerName);
-      $lecturerData = $lecturerResult->fetch_assoc();
-      $lecturerID = intval($lecturerData['id']);
-
-     
-      $resultTable = searchLecturerAssignedCourses($lecturerID);
+      if ($lecturerName != null)
+      {
+        $lecturerNameDisplay = $lecturerName;
+        $lecturerResult = searchLecturerByName($lecturerName);
+        $lecturerData = $lecturerResult->fetch_assoc();
+        $lecturerID = intval($lecturerData['id']);
+  
+       
+        $resultTable = searchLecturerAssignedCourses($lecturerID);
+      }
+      else
+      {
+        $selectLecturerErr="Please select a lecturer.";
+      }
     }
-    else if ($action === 'save')
+    else if ($action === 'save' && $lecturerName && $courseName)
     {
       if ($lecturerName && $courseName)
       {
@@ -46,39 +57,72 @@
         $courseResult = searchCourseByName($courseName);
         $courseData = $courseResult->fetch_assoc();
         $courseID = intval($courseData['id']);
-            
-          
+        
+        
         echo
         "
         <script>
-          alert('".addCourseAssignment($lecturerID,$courseID)."');
-          window.location.href = 'lecturerCourse.php';
-          </script>
+        alert('".addCourseAssignment($lecturerID,$courseID)."');
+        window.location.href = 'lecturerCourse.php';
+        </script>
         ";
         exit();
-      
-        }
-        else
-        {
-          if (!$lecturerName)
-          {
-            $selectLecturerErr="Please select a lecturer.";
-          }
-          if (!$courseName)
-          {
-            $selectCourseErr = "Please select a course.";
-          }
-  
-        } 
         
       }
+      
+    }
+
+    // delete function
+
+
+    else if ($action === 'delete')
+    {
+      
+      // Get value for lecturer id and course id
+      $lecturerID = isset($_POST['lecturer-id'])? intval($_POST['lecturer-id']) : 0;
+      $courseID = isset($_POST['course-id'])? intval($_POST['course-id']) : 0;
+
+      if ($lecturerID > 0 && $courseID > 0)
+      {
+        echo
+        "
+        <script>
+        alert('".removeAssignment($lecturerID,$courseID)."');
+        window.location.href = 'lecturerCourse.php';
+        </script>
+        ";
+
+      }
+      else
+      {
+        echo "
+        <script>
+        alert('Invalid Lecturer or Course ID.');
+        </script>
+        ";
+      }
+      exit();
 
     }
 
-  
+    // Empty field handling 
+
+    else
+    {
+      if (!$lecturerName)
+      {
+        $selectLecturerErr="Please select a lecturer.";
+      }
+      if (!$courseName)
+      {
+        $selectCourseErr = "Please select a course.";
+      }
+
+    } 
+      
+    }
 
 
-  
 ?>
 
 
@@ -90,7 +134,7 @@
     <title>Assign Course</title>
 </head>
 <body>
-    <div class="gradient-custom vh-auto min-vh-100">
+    <div class="gradient-custom vh-xl-auto min-vh-100">
 
         <div class="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark ms-auto">
                 <div class="container-fluid p-3">
@@ -132,35 +176,72 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <section class="">
-                                    <div class="container py-5 h-100 ">
+                                  <!-- <section class=""> -->
+                                    <div class="container py-5 h-auto ">
                                       <div class="row d-flex flex-xl-row-reverse flex-md-row justify-content-xl-between justify-content-md-center align-items-start h-100">
                                         
                                         <!-- table section -->
                                         <div class="col-xl-5 col-md-10 col-lg-8 col-mb-4 pl-4">
+                                          <h4 for="">
+                                            <?php
+                                              if ($lecturerNameDisplay)
+                                              {
+                                                echo "Results for " , $lecturerNameDisplay;
+                                              }
+                                            ?>
+                                          </h4>
                                           <table class="table table-bordered text-center table-striped">
-                                            <thead>
                                               <tr>
                                                 <th>Course</th>
                                                 <th>Action</th>
                                               </tr>
-                                            </thead>
-                                            <tbody>
+                                            
+                                              <tr>
+                                                <?php
+                                                  if ($resultTable)
+                                                  {
+                                                    
+                                                    while($row = mysqli_fetch_assoc($resultTable)) 
+                                                    {
+                                                      ?>
+                                                      <tr>
+                                                      <td><?php echo $row['name'];?></td>
+
+                                                      <!-- Delete button -->
+
+                                                      <td class="table-icons">
+                                                        <form action="" method="post">
+                                                          <input type="hidden" name="lecturer-id" value="<?php echo $lecturerID;?>">
+                                                          <input type="hidden" name="course-id" value="<?php echo $row['id'];?>">
+                                                        <button type="submit" name="action" value="delete">
+                                                          <img src="../icons/delete.png" alt="">
+                                                      </button>
+
+                                                        </form>
+                                                      
+                                                      </td>
+                                                    </tr>
+                                                    
+                                                    <?php
+                                                  }
+                                                    }
+                                                    ?>
+
+                                              </tr>
 
                                               
-                                            </tbody>
                             
                                           </table>
                                         </div>
                     
                     <!-- card section -->
                     <div class="col-12 col-md-9 col-lg-6 col-xl-5">
-                      <div class="card bg-warning register-custom-card" style="border-radius: 1rem;">
+                      <div class="card bg-white lecturer-assignment-custom-card" style="border-radius: 1rem;">
                         <div class="card-body p-5">
                        <form action="" method="post">
                           <div class="mb-md-5 mt-md-4 pb-5">
                             <div class="text-center">
-                              <h2 class="fw-bold mb-2 text-center">Assign Course</h2>
+                              <h2 class="fw-bold mb-2 text-center card-title">Assign Course</h2>
                               <p class="mb-5"></p>
                             </div>
           
@@ -171,12 +252,13 @@
                                  <?php
                                     while($row = mysqli_fetch_assoc($resultLecturers)) 
                                     {
-
+                                      
                                       echo '<option value="' . htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8') . '">'.$row['name'].'</option>';
                                     }
-                                  ?>
+                                    ?>
                               <div style="color: red;"><?php echo $selectLecturerErr; ?></div>
                             </select>
+                            <div style="color: red;"><?php echo $selectLecturerErr; ?></div>
                             <button class="my-3 btn btn-success" type="submit" id="search-btn" name="action" value="search">Search</button>
                               </div>
                               
@@ -207,7 +289,7 @@
                   </div>
                 </div>
               </div>
-            </section>
+            <!-- </section> -->
       </div>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
