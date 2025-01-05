@@ -1,6 +1,8 @@
 <?php
 session_start();
 include 'db_connect.php'; // Ensure the database connection file is included
+
+
 ?>
 
 <!DOCTYPE html>
@@ -47,9 +49,13 @@ include 'db_connect.php'; // Ensure the database connection file is included
                             Dashboard
                         </a>
                         <div class="sb-sidenav-menu-heading">Management</div>
-                        <a class="nav-link" href="adminDashboard.php">
+                        <a class="nav-link" href="#student-list">
                             <div class="sb-nav-link-icon"><i class="fas fa-user-graduate"></i></div>
                             Manage Students
+                        </a>
+                        <a class="nav-link" href="#assign-student">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-graduate"></i></div>
+                            Assign Student to Course
                         </a>
                         <a class="nav-link" href="charts.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -71,6 +77,7 @@ include 'db_connect.php'; // Ensure the database connection file is included
                         <li class="breadcrumb-item active">Student Management</li>
                     </ol>
                     <!-- Include Student List -->
+                    <section id="student-list">
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
@@ -78,14 +85,30 @@ include 'db_connect.php'; // Ensure the database connection file is included
                         </div>
                         <div class="card-body">
                             <?php include 'studentList.php'; ?>
+                            
+
                         </div>
                     </div>
+                        </section>
+                    <!-- Assign Student Section -->
+                    <section id="assign-student">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            Assign Student to Course
+                        </div>
+                        <div class="card-body">
+                            <?php include 'assignStudent.php'; ?>
+                        </div>
+                    </div>
+                        </section>
+                    <!-- end of Assign Student section -->
                 </div>
             </main>
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2024</div>
+                        <div class="text-muted">Copyright &copy; Peer Code Review 2025</div>
                         <div>
                             <a href="#">Privacy Policy</a>
                             &middot;

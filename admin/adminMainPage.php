@@ -31,7 +31,7 @@
                             <li class="nav-item dropdown px-3">
                                 <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown">Course Management</a>
                                 <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="">Add Course</a></li>
+                                <li><a class="dropdown-item" href="CourseCrudOperation.php">Add Course</a></li>
                                 <hr class="dropdown-split">
                                 <li><a class="dropdown-item" href="lecturerCourse.php">Assign Course</a></li>
                                 </ul>

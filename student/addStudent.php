@@ -75,9 +75,13 @@ $conn->close();
                             Dashboard
                         </a>
                         <div class="sb-sidenav-menu-heading">Management</div>
-                        <a class="nav-link" href="adminDashboard.php">
+                        <a class="nav-link" href="adminDashboard.php#student-list">
                             <div class="sb-nav-link-icon"><i class="fas fa-user-graduate"></i></div>
                             Manage Students
+                        </a>
+                        <a class="nav-link" href="adminDashboard.php#assign-student">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-graduate"></i></div>
+                            Assign Student to Course
                         </a>
                         <a class="nav-link" href="charts.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -128,7 +132,7 @@ $conn->close();
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2024</div>
+                        <div class="text-muted">Copyright &copy; Peer Code Review 2025</div>
                         <div>
                             <a href="#">Privacy Policy</a>
                             &middot;

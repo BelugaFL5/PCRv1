@@ -1,6 +1,32 @@
 <?php
 include 'db_connect.php';
+// Check for the search query
+$searchQuery = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+// Function to fetch filtered student data
+function searchStudent($conn, $searchQuery) {
+    $sql = "SELECT * FROM student";
+    if (!empty($searchQuery)) {
+        $sql .= " WHERE name LIKE ? OR email LIKE ?";
+    }
+    $sql .= " ORDER BY DateOfReg ASC";
+
+    $stmt = $conn->prepare($sql);
+    if (!empty($searchQuery)) {
+        $searchTerm = "%" . $searchQuery . "%";
+        $stmt->bind_param("ss", $searchTerm, $searchTerm);
+    }
+    $stmt->execute();
+    return $stmt->get_result();
+}
+
+// Fetch the search results
+$result = searchStudent($conn, $searchQuery);
+
+
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,14 +38,39 @@ include 'db_connect.php';
   <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
-  <div class="wrapper">
-    <div class="container mt-5">
+    <div class="wrapper">
+      <div class="container mt-5">
       <header class="mb-4 text-center">
         <h1>Manage Students</h1>
       </header>
-      <div class="text-end mb-3">
-        <a href="addStudent.php" class="btn btn-primary">Add Student</a>
+      <!-- Search bar -->
+      <div class="row mb-3">
+        <div class="col-md-7">
+          <form action="adminDashboard.php" method="GET" class="input-group">
+            <input 
+              type="text" 
+              name="search" 
+              class="form-control" 
+              placeholder="Search by name or email..." 
+              value="<?php echo htmlspecialchars($searchQuery); ?>" 
+              required
+            >
+            <button class="btn btn-outline-secondary" type="submit">
+              🔍 Search
+            </button>
+          </form>
+        </div>
+        <!-- Reset button and add student -->
+        <div class="col-md-5 text-end">
+        
+          
+          <a href="adminDashboard.php#student-list" class="btn btn-primary">Reset Table</a>
+        
+          <a href="addStudent.php" class="btn btn-primary">Add Student</a>
+        </div>
       </div>
+
+      <!-- Student table -->
 <table class="table table-bordered table-hover align-middle text-center">
     <thead class="table-dark">
         <tr>
@@ -32,9 +83,9 @@ include 'db_connect.php';
     </thead>
     <tbody>
         <?php
-        // Fetch student data
-        $sql = "SELECT * FROM student ORDER BY DateOfReg ASC";
-        $result = $conn->query($sql);
+        // Display student data
+        // $sql = "SELECT * FROM student ORDER BY DateOfReg ASC";
+        // $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
